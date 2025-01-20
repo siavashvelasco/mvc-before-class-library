@@ -1,0 +1,9 @@
+﻿@if (TempData["edMas"] != null)
+{
+	<h1>@TempData["edMas"]</h1>
+}
+else if(TempData["cerMas"] != null){
+<h1>@TempData["cerMas"]</h1>}
+else {
+	<h1>@TempData["delMas"]</h1>
+}

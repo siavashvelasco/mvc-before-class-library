@@ -1,0 +1,27 @@
+﻿@model Category
+<h1>Edit page</h1>
+<form method="post">
+	<div asp-validation-summary="All"></div>
+	<div class="row">
+		<label for="name" class="col-sm-2 col-form-label">input name</label>
+		<div class="col-sm-10">
+			<input asp-for="Name" type="text" class="form-control-plaintext" style="border-block-color:brown" id="name">
+			<span asp-validation-for="Name" class="tab-content"></span>
+		</div>
+	</div>
+
+	<div class="row">
+		<label for="order" class="col-sm-2 col-form-label">input order</label>
+		<div class="col-sm-10">
+			<input asp-for="Order" type="text" class="form-control-plaintext" style="border-block-color:aqua" id="order">
+		</div>
+	</div>
+	<div>
+		<button type="submit">Edit</button>
+	</div>
+</form>
+@section Scripts {
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}

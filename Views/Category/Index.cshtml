@@ -1,0 +1,28 @@
+﻿@model List<Category>
+<partial name="_Notifs" />
+<h1>Categories</h1>
+
+<div >
+	<a  asp-action="Create">Create category</a>
+</div>
+<div>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">NAME</th>
+				<th scope="col">ORDER</th>
+			</tr>
+			@foreach (var item in Model)
+			{
+				<tr class="table-active">
+					<td>@item.Id</td>
+					<td>@item.Name</td>
+					<td>@item.Order</td>
+					<td><a asp-controller="Category" asp-action="Delete" asp-route-id="@item.Id"> Delete </a></td>
+					<td><a asp-controller="Category" asp-action="Edit" asp-route-id="@item.Id"> Edit </a></td>
+				</tr>
+			}
+		</thead>
+	</table>
+</div>

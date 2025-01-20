@@ -1,0 +1,24 @@
+﻿@model Category
+<form method="post">
+	<div class="row">
+		<label for="name" class="col-sm-2 col-form-label">input name</label>
+		<div class="col-sm-10">
+			<input asp-for="Name" type="text" class="form-control-plaintext" style="border-block-color:brown" id="name" disabled>
+		</div>
+	</div>
+
+	<div class="row">
+		<label for="order" class="col-sm-2 col-form-label">input order</label>
+		<div class="col-sm-10">
+			<input asp-for="Order" type="text" class="form-control-plaintext" style="border-block-color:aqua" id="order" disabled>
+		</div>
+	</div>
+	<div>
+		<button type="submit">Delete</button>
+	</div>
+</form>
+@section Scripts {
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}
