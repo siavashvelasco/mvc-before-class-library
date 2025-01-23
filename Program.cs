@@ -1,11 +1,14 @@
 using Microsoft.EntityFrameworkCore;
+using mvc.DataAccess.Data;
+using mvc.DataAccess.Repository;
+using mvc.DataAccess.Repository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<Context>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
-
+builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

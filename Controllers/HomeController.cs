@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using MVC23._10._1403.Models;
+using mvc.Models;
 using System.Diagnostics;
 
 namespace MVC23._10._1403.Controllers

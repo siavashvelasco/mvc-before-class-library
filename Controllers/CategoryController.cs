@@ -1,19 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MVC23._10._1403.Models;
+using mvc.Models;
+using mvc.DataAccess.Data;
+using mvc.DataAccess.Repository;
+using mvc.DataAccess.Repository.IRepository;
 
 namespace MVC23._10._1403.Controllers
 {
 	public class CategoryController : Controller
 	{
-		private readonly Context _db;
-		public CategoryController(Context db)
+		private readonly ICategoryRepository _categoryRepo;
+		public CategoryController(ICategoryRepository categoryRepo)
 		{
-			_db = db;
+			_categoryRepo = categoryRepo;
 
 		}
 		public IActionResult Index()
 		{
-			var objCategoryList = _db._categories.ToList();
+			var objCategoryList = _categoryRepo.GetAll();
 			return View(objCategoryList);
 		}
 		public IActionResult Create()
@@ -23,14 +26,16 @@ namespace MVC23._10._1403.Controllers
 		[HttpPost]
 		public IActionResult Create(Category category)
 		{
-			if (category.Name == category.Order.ToString() + "5")
-			{
-				ModelState.AddModelError("name", "heh!");
-			}
+			//if (category.Name == category.Order.ToString() + "5")
+			//{
+			//	ModelState.AddModelError("name", "heh!");
+			//}
 			if (ModelState.IsValid)
 			{
-				_db._categories.Add(category);
-				_db.SaveChanges();
+				_categoryRepo.Create(category);
+				_categoryRepo.Save();
+
+				//_db.SaveChanges();
 				TempData["cerMas"] = "cereate shod";
 				return RedirectToAction("index");
 			}
@@ -38,17 +43,17 @@ namespace MVC23._10._1403.Controllers
 		}
 		public IActionResult Edit(int id)
 		{
-		Category category = _db._categories.Find(id);
+			Category category = _categoryRepo.Get(o => o.Id == id);
 			return View(category);
 		}
 		[HttpPost]
-		public IActionResult Edit(Category updatedCategory) 
+		public IActionResult Edit(Category updatedCategory)
 		{
-			Category category = _db._categories.Find(updatedCategory.Id);
-			category.Name = updatedCategory.Name;
-			category.Order = updatedCategory.Order;
-			_db._categories.Update(category);
-			_db.SaveChanges();
+			//Category category = _categoryRepo.Get(updatedCategory.Id);
+			_categoryRepo.Update(updatedCategory);
+			_categoryRepo.Save();
+			//_db._categories.Update(category);
+			//_db.SaveChanges();
 			TempData["edMas"] = "edit shod";
 			return RedirectToAction("index");
 
@@ -56,19 +61,22 @@ namespace MVC23._10._1403.Controllers
 		public IActionResult Delete(int id)
 
 		{
-			Category category = _db._categories.Find(id);
-			return View(category); 
-	
-		}
-	[HttpPost,ActionName("Delete")]
-	public IActionResult DeletePost(int id)
-	{
-		Category category = _db._categories.Find(id);
-		_db._categories.Remove(category);
-		_db.SaveChanges();
-		TempData["delMas"] = "delete shod";
-		return RedirectToAction("index");
-	}
+			Category category = _categoryRepo.Get(o => o.Id == id);
 
-}
+			return View(category);
+
+		}
+		[HttpPost, ActionName("Delete")]
+		public IActionResult DeletePost(int id)
+		{
+			Category category = _categoryRepo.Get(o=>o.Id==id);
+			_categoryRepo.Remove(category);
+			_categoryRepo.Save();
+
+			//_db.SaveChanges();
+			TempData["delMas"] = "delete shod";
+			return RedirectToAction("index");
+		}
+
+	}
 }
