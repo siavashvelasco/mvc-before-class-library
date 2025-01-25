@@ -8,15 +8,15 @@ namespace MVC23._10._1403.Controllers
 {
 	public class CategoryController : Controller
 	{
-		private readonly ICategoryRepository _categoryRepo;
-		public CategoryController(ICategoryRepository categoryRepo)
+		private readonly IUnitOfWork _unitOfWork;
+		public CategoryController(IUnitOfWork unitOfWork)
 		{
-			_categoryRepo = categoryRepo;
+			_unitOfWork = unitOfWork;
 
 		}
 		public IActionResult Index()
 		{
-			var objCategoryList = _categoryRepo.GetAll();
+			var objCategoryList = _unitOfWork.CategoryRepo.GetAll();
 			return View(objCategoryList);
 		}
 		public IActionResult Create()
@@ -32,8 +32,8 @@ namespace MVC23._10._1403.Controllers
 			//}
 			if (ModelState.IsValid)
 			{
-				_categoryRepo.Create(category);
-				_categoryRepo.Save();
+				_unitOfWork.CategoryRepo.Create(category);
+				_unitOfWork.Save();
 
 				//_db.SaveChanges();
 				TempData["cerMas"] = "cereate shod";
@@ -43,15 +43,15 @@ namespace MVC23._10._1403.Controllers
 		}
 		public IActionResult Edit(int id)
 		{
-			Category category = _categoryRepo.Get(o => o.Id == id);
+			Category category = _unitOfWork.CategoryRepo.Get(o => o.Id == id);
 			return View(category);
 		}
 		[HttpPost]
 		public IActionResult Edit(Category updatedCategory)
 		{
 			//Category category = _categoryRepo.Get(updatedCategory.Id);
-			_categoryRepo.Update(updatedCategory);
-			_categoryRepo.Save();
+			_unitOfWork.CategoryRepo.Update(updatedCategory);
+			_unitOfWork.CategoryRepo.Save();
 			//_db._categories.Update(category);
 			//_db.SaveChanges();
 			TempData["edMas"] = "edit shod";
@@ -61,7 +61,7 @@ namespace MVC23._10._1403.Controllers
 		public IActionResult Delete(int id)
 
 		{
-			Category category = _categoryRepo.Get(o => o.Id == id);
+			Category category = _unitOfWork.CategoryRepo.Get(o => o.Id == id);
 
 			return View(category);
 
@@ -69,9 +69,9 @@ namespace MVC23._10._1403.Controllers
 		[HttpPost, ActionName("Delete")]
 		public IActionResult DeletePost(int id)
 		{
-			Category category = _categoryRepo.Get(o=>o.Id==id);
-			_categoryRepo.Remove(category);
-			_categoryRepo.Save();
+			Category category = _unitOfWork.CategoryRepo.Get(o=>o.Id==id);
+			_unitOfWork.CategoryRepo.Remove(category);
+			_unitOfWork.Save();
 
 			//_db.SaveChanges();
 			TempData["delMas"] = "delete shod";
