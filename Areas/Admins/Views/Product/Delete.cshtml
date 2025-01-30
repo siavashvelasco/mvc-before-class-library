@@ -1,0 +1,44 @@
+﻿@model Product
+
+<h1>Delete product page</h1>
+<form method="post">
+	<div>
+		<label for="Id" class="form-label mt-4">Id</label>
+		<input class="form-control" id="Id" readonly="">
+	</div>
+	<div>
+		<label for="Title" class="form-label mt-4">Title</label>
+		<input class="form-control" id="Title"  readonly="" asp-for="Title">
+	</div>
+	<div>
+		<label for="Description" class="form-label mt-4">Description</label>
+		<input class="form-control" id="Description"  readonly="" asp-for="Description">
+	</div>
+	<div>
+		<label for="ISBN" class="form-label mt-4">ISBN</label>
+		<input class="form-control" id="ISBN"  readonly="" asp-for="ISBN">
+	</div>
+
+	<div>
+		<label for="Author" class="form-label mt-4">Author</label>
+		<input class="form-control" id="Author"  readonly="" asp-for="Author">
+	</div>
+	<div>
+		<label for="ListPrice" class="form-label mt-4">ListPrice</label>
+		<input class="form-control" id="Title"  readonly="" asp-for="ListPrice">
+	</div>
+	<div>
+		<label for="Price" class="form-label mt-4">Price</label>
+		<input class="form-control" id="Price"  readonly="" asp-for="Price">
+	</div>
+	<div>
+		<label for="Price50" class="form-label mt-4">Price50</label>
+		<input class="form-control" id="Price50"  readonly="" asp-for="Price50">
+	</div>
+	<div>
+		<label for="Price100" class="form-label mt-4">Price100</label>
+		<input class="form-control" id="Price100"  readonly="" asp-for="Price100">
+	</div>
+	<button type="submit" class="btn btn-primary">Edit</button>
+
+</form>

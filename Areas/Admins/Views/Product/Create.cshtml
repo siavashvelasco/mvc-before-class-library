@@ -1,0 +1,69 @@
+﻿@model Product
+<form method="post">
+
+	<div>
+		<label for="Title" class="form-label mt-4">Title</label>
+		<input class="form-control" id="Title" asp-for="Title">
+		<span asp-validation-for="Title"></span>
+
+	</div>
+	<div>
+		<label for="Description" class="form-label mt-4">Description</label>
+		<input class="form-control" id="Description"
+			   asp-for="Description">
+		<span asp-validation-for="Description"></span>
+
+	</div>
+	<div>
+		<label for="ISBN" class="form-label mt-4">ISBN</label>
+		<input class="form-control" id="ISBN" asp-for="ISBN">
+		<span asp-validation-for="ISBN"></span>
+
+	</div>
+
+	<div>
+		<label for="Author" class="form-label mt-4">Author</label>
+		<input class="form-control" id="Author" asp-for="Author">
+		<span asp-validation-for="Author"></span>
+
+	</div>
+	<div>
+		<label for="ListPrice" class="form-label mt-4">ListPrice</label>
+		<input class="form-control" id="Title" asp-for="ListPrice">
+		<span asp-validation-for="ListPrice"></span>
+
+	</div>
+
+
+	<div>
+		<label for="Price" class="form-label mt-4">Price</label>
+		<input class="form-control" id="Price" asp-for="Price">
+		<span asp-validation-for="Price"></span>
+
+	</div>
+	<div>
+		<label for="Price50" class="form-label mt-4">Price50</label>
+		<input class="form-control" id="Price50" asp-for="Price50">
+		<span asp-validation-for="Price50"></span>
+
+	</div>
+	<div>
+		<label for="Price100" class="form-label mt-4">Price100</label>
+		<input class="form-control" id="Price100" asp-for="Price100">
+		<span asp-validation-for="Price100"></span>
+
+	</div>
+	<div>
+		<label for="CategoryId" class="form-label mt-4">CategoryId</label>
+		<input class="form-control" id="Price100" asp-for="CategoryId">
+		<span asp-validation-for="CategoryId"></span>
+
+	</div>
+	<button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+@section Scripts {
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}

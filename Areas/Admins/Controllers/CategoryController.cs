@@ -51,7 +51,7 @@ namespace MVC23._10._1403.Areas.Admins.Controllers
         {
             //Category category = _categoryRepo.Get(updatedCategory.Id);
             _unitOfWork.CategoryRepo.Update(updatedCategory);
-            _unitOfWork.CategoryRepo.Save();
+            _unitOfWork.Save();
             //_db._categories.Update(category);
             //_db.SaveChanges();
             TempData["edMas"] = "edit shod";

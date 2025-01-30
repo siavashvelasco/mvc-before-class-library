@@ -1,0 +1,42 @@
+﻿<h1>Product page</h1>
+@model List<Product>
+<partial name="_Notifs" />
+
+<div>
+	<a asp-action="Create">Create product</a>
+</div>
+<div>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">Title</th>
+				<th scope="col">Description</th>
+				<th scope="col">ISBN</th>
+				<th scope="col">Author</th>
+				<th scope="col">ListPrice</th>
+				<th scope="col">Price</th>
+				<th scope="col">Price50</th>
+				<th scope="col">Price100</th>
+				<th scope="col">CategoryId</th>
+			</tr>
+			@foreach (var item in Model)
+			{
+				<tr class="table-active">
+					<td>@item.Id</td>
+					<td>@item.Title</td>
+					<td>@item.Description</td>
+					<td>@item.ISBN</td>
+					<td>@item.Author</td>
+					<td>@item.ListPrice</td>
+					<td>@item.Price</td>
+					<td>@item.Price50</td>
+					<td>@item.Price100</td>
+					<td>@item.CategoryId</td>
+					<td><a asp-controller="Product" asp-action="Delete" asp-route-id="@item.Id"> Delete </a></td>
+					<td><a asp-controller="Product" asp-action="Edit" asp-route-id="@item.Id"> Edit </a></td>
+				</tr>
+			}
+		</thead>
+	</table>
+</div>
