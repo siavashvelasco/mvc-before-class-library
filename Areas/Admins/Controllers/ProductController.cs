@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using mvc.DataAccess.Repository.IRepository;
 using mvc.Models;
 
@@ -21,6 +22,10 @@ namespace MVC23._10._1403.Areas.Admins.Controllers
 		}
 		public IActionResult Create()
 		{
+			IEnumerable<SelectListItem> categoryListItem = _unitOfWork.CategoryRepo.GetAll()
+				.Select(u => new SelectListItem() { Text = u.Name,Value=u.Id.ToString()});
+			//ViewBag.CategoryListItem = categoryListItem;
+			ViewData["Title"] = categoryListItem;
 			return View();
 		}
 		[HttpPost]
