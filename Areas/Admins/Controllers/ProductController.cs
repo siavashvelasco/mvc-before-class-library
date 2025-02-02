@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using mvc.DataAccess.Repository.IRepository;
 using mvc.Models;
+using mvc.Models.ViewModels;
 
 namespace MVC23._10._1403.Areas.Admins.Controllers
 {
@@ -23,25 +24,28 @@ namespace MVC23._10._1403.Areas.Admins.Controllers
 		public IActionResult Create()
 		{
 			IEnumerable<SelectListItem> categoryListItem = _unitOfWork.CategoryRepo.GetAll()
-				.Select(u => new SelectListItem() { Text = u.Name,Value=u.Id.ToString()});
+				.Select(u => new SelectListItem() { Text = u.Name, Value = u.Id.ToString() });
 			//ViewBag.CategoryListItem = categoryListItem;
-			ViewData["Title"] = categoryListItem;
-			return View();
+			//ViewData["Title"] = categoryListItem;
+			var categoryListItemToView = new ProductVM() { CategoryListItem = categoryListItem, Product = new Product() };
+			return View(categoryListItemToView);
 		}
 		[HttpPost]
-		public IActionResult Create(Product obj)
+		public IActionResult Create(ProductVM obj)
 		{
-			//if (ModelState.IsValid)
-			
-				_unitOfWork.ProductRepo.Create(obj);
+			if (ModelState.IsValid)
+			{
+
+				_unitOfWork.ProductRepo.Create(obj.Product);
 				_unitOfWork.Save();
-			TempData["cerMas"] = "Product creadted sucsessfully";
+				TempData["cerMas"] = "Product creadted sucsessfully";
 
 				return RedirectToAction("Index");
-			
-			//return View();
+			}
 
-		
+			return View();
+
+
 
 		}
 		public IActionResult Edit(int id)
