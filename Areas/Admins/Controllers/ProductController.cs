@@ -20,7 +20,7 @@ namespace MVC23._10._1403.Areas.Admins.Controllers
 
 		public IActionResult Index()
 		{
-			var Products = _unitOfWork.ProductRepo.GetAll();
+			var Products = _unitOfWork.ProductRepo.GetAll("Category");
 
 			return View(Products);
 		}
