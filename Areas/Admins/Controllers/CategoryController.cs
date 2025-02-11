@@ -6,7 +6,9 @@ using mvc.DataAccess.Repository.IRepository;
 
 namespace MVC23._10._1403.Areas.Admins.Controllers
 {
-    public class CategoryController : Controller
+	[Area("Admins")]
+
+	public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
         public CategoryController(IUnitOfWork unitOfWork)

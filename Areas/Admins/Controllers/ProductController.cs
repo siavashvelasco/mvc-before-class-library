@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using mvc.DataAccess.Repository.IRepository;
 using mvc.Models;
 using mvc.Models.ViewModels;
-
+using System.IO;
 namespace MVC23._10._1403.Areas.Admins.Controllers
 {
+	[Area("Admins")]
+
 	public class ProductController : Controller
 	{
 		private IUnitOfWork _unitOfWork;
@@ -42,25 +44,49 @@ namespace MVC23._10._1403.Areas.Admins.Controllers
 			}
 		}
 		[HttpPost]
-		public IActionResult Upsert(ProductVM obj,IFormFile? file)
+		public IActionResult Upsert(ProductVM obj, IFormFile? file)
 		{
-			var wwwRoot = _webHostEnvironment.WebRootPath;//آدرس سرور
-			var filePath = Path.Combine(wwwRoot, @"Image\Product");
-			var fileName = /*Guid.NewGuid().ToString()*/ file.FileName;
-			using (var theMainFile = new FileStream(Path.Combine(filePath, fileName), FileMode.Create))
-			{
-				file.CopyTo(theMainFile);
-			}
+			var wwwRoot = _webHostEnvironment.WebRootPath;// فایل سرور
+			var filePath = Path.Combine(wwwRoot, @"Image\Product"); //ادرس فایل در فایل سرور
 			if (ModelState.IsValid)
 			{
-				obj.Product.ImageUrl = "/Image/Product/" + fileName;//آدرس url
-				_unitOfWork.ProductRepo.Create(obj.Product);
+
+
+				if (file != null)
+				{
+					if (!string.IsNullOrEmpty(obj.Product.ImageUrl)  )
+					{
+						var FileAddress = wwwRoot + obj.Product.ImageUrl;
+
+						if (System.IO.File.Exists(FileAddress))
+						{
+							System.IO.File.Delete(FileAddress);
+						}
+					}
+					using (var theMainFile = new FileStream(Path.Combine(filePath, file.FileName), FileMode.Create))
+
+					{
+						file.CopyTo(theMainFile);
+					}
+					obj.Product.ImageUrl = @"\Image\Product\" + file.FileName;//آدرس url
+				}
+				if (obj.Product.Id > 0)
+				{
+
+					_unitOfWork.ProductRepo.Update(obj.Product);
+				}
+				else
+				{
+					_unitOfWork.ProductRepo.Create(obj.Product);
+
+
+				}
 				_unitOfWork.Save();
 				TempData["cerMas"] = "Product creadted sucsessfully";
 
 				return RedirectToAction("Index");
-			}
 
+			}
 			return View();
 
 

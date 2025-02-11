@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace MVC23._10._1403.Areas.Customers.Controllers
 {
+    [Area("Customers")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
